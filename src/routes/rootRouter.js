@@ -3,7 +3,7 @@ import booksRouter from "./api/v1/booksRouter.js"
 
 const rootRouter = new express.Router()
 
-rootRouter.get("/", (req, res) => {
+rootRouter.get("/books", (req, res) => {
   res.render("index")
 })
 
