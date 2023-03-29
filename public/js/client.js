@@ -1,31 +1,35 @@
 // with error handling
 // const fetchBook = async () => {
-//         try {
-//                 const bookResponse = await fetch("/api/v1/books")
+//     try {
+//             const bookResponse = await fetch("/api/v1/books")
 
-//                 if (bookResponse.ok){
-//                         const parsedBookData = await bookResponse.json()
-//                         appendBooksArrayToHtml(parsedBookData.books)
-//                 } else {
-//                         const myFirstError = new Error(`${bookResponse.status} ${bookResponse.statusText}`)
-//                         throw (myFirstError)
-//                 }
-//         } catch (someError){
-//                 console.log(someError)
-//                 console.log("Keep calm, developers are on it...")
-//         }
+//             if (bookResponse.ok){
+//                     const parsedBookData = await bookResponse.json()
+//                     appendBooksArrayToHtml(parsedBookData.books)
+//             } else {
+//                     const myFirstError = new Error(`${bookResponse.status} ${bookResponse.statusText}`)
+//                     throw (myFirstError)
+//             }
+//     } catch (someError){
+//             console.log(someError)
+//             // console.log("Keep calm, developers are on it...")
+//     }
 // }
 
 // shortened version
+console.log("Hello")
+
 const fetchBook = async () => {
-        const bookResponse = await fetch("/api/v1/books")
-        const parsedBookData = await bookResponse.json()
-        appendBooksArrayToHtml(parsedBookData.books)
+    const bookResponse = await fetch("/api/v1/books")
+    const parsedBooksObject = await bookResponse.json()
+    appendBooksArrayToHtml(parsedBooksObject.books)
 }
 
 
 const bookButton = document.getElementById('book-button')
-bookButton.addEventListener("click", fetchBook, false); 
+if (bookButton){
+    bookButton.addEventListener("click", fetchBook);  
+}
 
 
 const appendBooksArrayToHtml = (books) => {
@@ -41,29 +45,28 @@ const appendBooksArrayToHtml = (books) => {
 
 // FOR POST FETCH
 
-// const postBook = async (event) => {
-//     event.preventDefault()
+const postBook = async (event) => {
+    event.preventDefault()
 
-//     const titleInputField = document.getElementById('city')
+    const titleInputField = document.getElementById('title')
 
-//     const newBook = {
-//         book: {
-//             title: titleInputField.value,
-//         }
-//     }
+    const newBook = {
+        book: {
+            title: titleInputField.value,
+        }
+    }
 
-//     const postedBookResponse = await fetch("/api/v1/books", {
-//         method: "POST",
-//         body: JSON.stringify(newBook),
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     })
+    const postedBookResponse = await fetch("/api/v1/books", {
+        method: "POST",
+        body: JSON.stringify(newBook),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
          
-//     const data = await response.json()
-//     appendBooksArrayToHtml(data.books)
-// }
+    alert("your book was saved")
+}
 
-// document
-//     .getElementById('new-book-submit-button')
-//     .addEventListener('click', postBook)
+document
+    .getElementById('new-book-form')
+    .addEventListener('submit', postBook)

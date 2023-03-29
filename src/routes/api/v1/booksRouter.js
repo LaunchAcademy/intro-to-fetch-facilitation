@@ -6,10 +6,8 @@ const booksRouter = new express.Router()
 
 booksRouter.get("/", (req, res) => {
   const books = Book.findAll()
-  res
-    .set({ 'Content-Type': 'application/json' })
-    .status(200)
-    .json({ books: books })
+  
+  res.json({ books: books })
 })
 
 booksRouter.post("/", (req, res) => {
